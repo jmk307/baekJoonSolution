@@ -9,3 +9,5 @@ GROUP BY HOST_ID
 HAVING COUNT(*) > 1
 )
 ORDER BY ID
+
+-- 서브쿼리와 WHERE IN 구문 사용법
