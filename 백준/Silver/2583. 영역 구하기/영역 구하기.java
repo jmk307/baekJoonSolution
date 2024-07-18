@@ -51,7 +51,7 @@ public class Main {
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < M; j++) {
                 if (matrix[i][j] == 1 & !visited[i][j]) {
-                    count = 1;
+                    count = 0;
                     DFS(i, j);
                     list.add(count);
                 }
@@ -64,6 +64,7 @@ public class Main {
 
     static void DFS(int a, int b) {
         visited[a][b] = true;
+        count++;
 
         for (int i = 0; i < 4; i++) {
             int x = a + dx[i];
@@ -73,7 +74,6 @@ public class Main {
                 if (matrix[x][y] == 1 & !visited[x][y]) {
                     matrix[x][y] = 0;
                     DFS(x, y);
-                    count++;
                 }
             }
         }
