@@ -47,17 +47,11 @@ public class Main {
             for (int j = 0; j < m; j++) {
                 if (!visited[j][i] && matrix[j][i] == 1) {
                     sb.append(-1).append(" ");
-
-                    if (j == m - 1) {
-                        sb.append("\n");
-                    }
                 } else {
                     sb.append(matrix[j][i]).append(" ");
-                    if (j == m - 1) {
-                        sb.append("\n");
-                    }
                 }
             }
+            sb.append("\n");
         }
 
         System.out.println(sb);
