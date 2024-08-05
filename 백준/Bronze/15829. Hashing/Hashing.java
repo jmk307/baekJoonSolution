@@ -15,11 +15,13 @@ public class Main {
         String input = br.readLine();
         char[] chars = input.toCharArray();
 
-        int sum = 0;
-        int count = 0;
+        long sum = 0;
+        long r = 1;
+        long M = 1234567891L;
+
         for (int i = 0; i < chars.length; i++) {
-            sum += (int) Math.pow(31, count) * (chars[i] - '0' - 48);
-            count++;
+            sum = (sum + (chars[i] - 'a' + 1) * r) % M;
+            r = (r * 31) % M;
         }
 
         System.out.println(sum);
