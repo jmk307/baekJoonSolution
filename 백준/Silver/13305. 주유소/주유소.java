@@ -4,10 +4,10 @@ import java.io.*;
 
 public class Main
 {
-    static int N, distanceSum;
+    static int N;
 
-    static int[] distances;
-    static int[] prices;
+    static long[] distances;
+    static long[] prices;
 
     static StringBuilder sb = new StringBuilder();
 
@@ -17,49 +17,37 @@ public class Main
 
         N = Integer.parseInt(br.readLine());
 
-        prices = new int[N];
-        distances = new int[N - 1];
+        prices = new long[N];
+        distances = new long[N - 1];
 
         st = new StringTokenizer(br.readLine());
-        distanceSum = 0;
         for (int i = 0; i < N - 1; i++) {
-            distances[i] = Integer.parseInt(st.nextToken());
-            distanceSum += distances[i];
+            distances[i] = Long.parseLong(st.nextToken());
         }
 
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i < N; i++) {
-            prices[i] = Integer.parseInt(st.nextToken());
+            prices[i] = Long.parseLong(st.nextToken());
         }
 
-        int sum = 0;
-        int minPrice = 0;
-        int i = 0;
-        while (true) {
-            if (sum == distanceSum) {
-                break;
+        long answer = 0;
+        long sum = distances[0];
+        long currentPrice = prices[0];
+
+        for (int i = 1; i < N - 1; i++) {
+            if (prices[i] < currentPrice) {
+                answer += sum * currentPrice;
+                currentPrice = prices[i];
+                sum = 0;
             }
 
-            int currentPrice = prices[i];
-            int nextPrice = prices[i + 1];
-
-            if (i == N - 2) {
-                minPrice += currentPrice * distances[i];
-                sum += distances[i];
-                break;
-            }
-
-            if (currentPrice * (distances[i] + distances[i + 1]) > currentPrice * distances[i] + nextPrice * distances[i + 1]) {
-                minPrice += currentPrice * distances[i];
-                sum += distances[i];
-                i++;
-            } else {
-                minPrice += currentPrice * (distances[i] + distances[i + 1]);
-                sum += distances[i] + distances[i + 1];
-                i += 2;
-            }
+            sum += distances[i];
         }
 
-        System.out.println(minPrice);
+        if (sum != 0) {
+            answer += sum * currentPrice;
+        }
+
+        System.out.println(answer);
     }
 }
