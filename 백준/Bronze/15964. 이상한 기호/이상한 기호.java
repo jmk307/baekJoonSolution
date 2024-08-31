@@ -16,7 +16,7 @@ public class Main
         A = Integer.parseInt(st.nextToken());
         B = Integer.parseInt(st.nextToken());
 
-        long answer = (A + B) * (A - B);
+        long answer = (long) (A + B) * (A - B);
 
         System.out.println(answer);
     }
