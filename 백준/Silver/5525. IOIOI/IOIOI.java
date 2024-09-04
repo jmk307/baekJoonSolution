@@ -1,3 +1,4 @@
+import java.math.BigInteger;
 import java.util.*;
 import java.lang.*;
 import java.io.*;
@@ -17,21 +18,23 @@ public class Main
         M = Integer.parseInt(br.readLine());
         S = br.readLine();
 
-        String P1 = "IOI";
-
-        for (int i = 0; i < N - 1; i++) {
-            P1 += "OI";
-        }
-
         String[] arrays = S.split("");
-        int count = 0;
-        for (int i = 0; i <= S.length() - P1.length(); i++) {
-            String current = S.substring(i, i + P1.length());
-            if (arrays[i].equals("I") && current.equals(P1)) {
-                count++;
+        int cnt = 0, ans = 0;
+        for (int i = 1; i < M - 1;) {
+            if (arrays[i].equals("O") && arrays[i + 1].equals("I")) {
+                cnt++;
+                if (cnt == N) {
+                    if (arrays[i- (cnt*2 - 1)].equals("I"))
+                        ans++;
+                    cnt--;
+                }
+                i += 2;
+            } else {
+                cnt = 0;
+                i++;
             }
         }
 
-        System.out.println(count);
+        System.out.println(ans);
     }
 }
