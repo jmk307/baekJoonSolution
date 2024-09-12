@@ -42,16 +42,6 @@ public class Main
                     king = new int[] {nextKingX, nextKingY};
                 }
             }
-
-            /*if (nextKingX >= 0 && nextKingX <= 7 && nextKingY > 0 && nextKingY < 9) {
-                if (nextKingX == stone[0] && nextKingY == stone[1]
-                        && nextStoneX >= 0 && nextStoneX <= 7 && nextStoneY > 0 && nextStoneY < 9) {
-                    king = new int[] {nextKingX, nextKingY};
-                    stone = new int[] {nextStoneX, nextStoneY};
-                } else if (nextKingX != stone[0] && nextKingY != stone[1]) {
-                    king = new int[] {nextKingX, nextKingY};
-                }
-            }*/
         }
 
         char kingResult = (char) ((king[0] + 17)  + '0');
