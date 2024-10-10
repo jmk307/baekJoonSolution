@@ -29,10 +29,8 @@ public class Main {
                         count++;
                         break;
                     } else if (i == k) {
-                        // i, j 가 같을때 인덱스 이동을 위함
                         i++;
                     } else if (j == k) {
-                        // i, j 가 같을때 인덱스 이동을 위함
                         j--;
                     }
                 } else if (input[i] + input[j] < find) {
