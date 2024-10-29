@@ -21,16 +21,15 @@ public class Main
 
         S = br.readLine();
         char[] chars = S.toCharArray();
+        int[][] prefixCounts = new int[26][S.length()];
 
-        for (char c : chars) {
-            map.put(c, new int[S.length()]);
-        }
-
-        map.get(chars[0])[0] = 1;
-        for (int i = 1; i < chars.length; i++) {
-            for (char c : map.keySet()) {
-                map.get(c)[i] = map.get(c)[i - 1] + (chars[i] == c ? 1 : 0);
+        prefixCounts[S.charAt(0) - 'a'][0] = 1;
+        for (int i = 1; i < S.length(); i++) {
+            int charIdx = S.charAt(i) - 'a';
+            for (int j = 0; j < 26; j++) {
+                prefixCounts[j][i] = prefixCounts[j][i - 1];
             }
+            prefixCounts[charIdx][i]++;
         }
 
         q = Integer.parseInt(br.readLine());
@@ -41,16 +40,14 @@ public class Main
             l = Integer.parseInt(st.nextToken());
             r = Integer.parseInt(st.nextToken());
 
-            if (!map.containsKey(a)) {
-                System.out.println(0);
+            int charIdx = a - 'a';
+            if (l == 0) {
+                sb.append(prefixCounts[charIdx][r]).append('\n');
             } else {
-                int[] counts = map.get(a);
-                if (l == 0) {
-                    System.out.println(counts[r]);
-                } else {
-                    System.out.println(counts[r] - counts[l - 1]);
-                }
+                sb.append(prefixCounts[charIdx][r] - prefixCounts[charIdx][l - 1]).append('\n');
             }
         }
+
+        System.out.println(sb);
     }
 }
