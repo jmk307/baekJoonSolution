@@ -10,7 +10,6 @@ public class Main
     static String total = "";
 
     static int[][] matrix;
-    static boolean[] visited;
 
     static StringBuilder sb = new StringBuilder();
 
@@ -31,65 +30,56 @@ public class Main
 
             if (l != '.') {
                 matrix[now - 'A'][0] = l - 'A';
+            } else {
+                matrix[now - 'A'][0] = -1;
             }
 
             if (r != '.') {
                 matrix[now - 'A'][1] = r - 'A';
+            } else {
+                matrix[now - 'A'][1] = -1;
             }
         }
 
-        visited = new boolean[26];
         DFS(0);
         System.out.println(total);
 
         total = "";
-        visited = new boolean[26];
         DFS2(0);
         System.out.println(total);
 
         total = "";
-        visited = new boolean[26];
         DFS3(0);
         System.out.println(total);
     }
 
     static void DFS(int v) {
-        visited[v] = true;
+        if (v == -1) {
+            return;
+        }
         total += String.valueOf((char) (v + 'A'));
 
-        if (!visited[matrix[v][0]] && matrix[v][0] != 0) {
-            DFS(matrix[v][0]);
-        }
-
-        if (!visited[matrix[v][1]] && matrix[v][1] != 0) {
-            DFS(matrix[v][1]);
-        }
+        DFS(matrix[v][0]);
+        DFS(matrix[v][1]);
     }
 
     static void DFS2(int v) {
-        visited[v] = true;
-
-        if (!visited[matrix[v][0]] && matrix[v][0] != 0) {
-            DFS2(matrix[v][0]);
+        if (v == -1) {
+            return;
         }
 
+        DFS2(matrix[v][0]);
         total += String.valueOf((char) (v + 'A'));
-
-        if (!visited[matrix[v][1]] && matrix[v][1] != 0) {
-            DFS2(matrix[v][1]);
-        }
+        DFS2(matrix[v][1]);
     }
 
     static void DFS3(int v) {
-        visited[v] = true;
-
-        if (!visited[matrix[v][0]] && matrix[v][0] != 0) {
-            DFS3(matrix[v][0]);
+        if (v == -1) {
+            return;
         }
 
-        if (!visited[matrix[v][1]] && matrix[v][1] != 0) {
-            DFS3(matrix[v][1]);
-        }
+        DFS3(matrix[v][0]);
+        DFS3(matrix[v][1]);
 
         total += String.valueOf((char) (v + 'A'));
     }
