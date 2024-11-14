@@ -21,7 +21,6 @@ public class Main
 
         int countZero = 0;
         int countOne = 0;
-
         for (String i : arrays) {
             if (i.equals("0")) {
                 countZero++;
@@ -30,13 +29,39 @@ public class Main
             }
         }
 
-        String result = "";
-        for (int i = countZero / 2; i > 0; i--) {
-            result += "0";
+        int a = 0;
+        for (int i = 0; i < arrays.length; i++) {
+            if (arrays[i].equals("1")) {
+                if (a < countOne / 2) {
+                    arrays[i] = "";
+                    a++;
+                }
+            }
+
+            if (a == countOne / 2) {
+                break;
+            }
         }
 
-        for (int i = countOne / 2; i > 0; i--) {
-            result += "1";
+        int b = 0;
+        for (int i = arrays.length - 1; i >= 0; i--) {
+            if (arrays[i].equals("0")) {
+                if (b < countZero / 2) {
+                    arrays[i] = "";
+                    b++;
+                }
+            }
+
+            if (b == countZero / 2) {
+                break;
+            }
+        }
+
+        String result = "";
+        for (String i : arrays) {
+            if (!i.isEmpty()) {
+                result += i;
+            }
         }
 
         System.out.println(result);
