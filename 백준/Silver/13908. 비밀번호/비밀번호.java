@@ -1,39 +1,59 @@
+import java.math.BigInteger;
 import java.util.*;
- 
-public class Main {
- 
+import java.io.*;
+import java.lang.*;
+
+public class Main
+{
     static int n, m;
-    static int count;
-    static boolean[] visited;
- 
-    public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
- 
-        n = scan.nextInt();
-        m = scan.nextInt();
- 
-        visited = new boolean[10];
-        for(int i = 0; i < m; i++) {
-            visited[scan.nextInt()] = true;
+    static int result = 0;
+
+    static int[] dx = {-1, 0, 1, 0};
+    static int[] dy = {0, -1, 0, 1};
+
+    static int[] matrix;
+    static boolean[] visited = new boolean[10];
+
+    static StringBuilder sb = new StringBuilder();
+    static final long div = 1_000_000_007;
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+
+        st = new StringTokenizer(br.readLine());
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
+
+        if (m != 0) {
+            st = new StringTokenizer(br.readLine());
+            for (int i = 0; i < m; i++) {
+                int now = Integer.parseInt(st.nextToken());
+                visited[now] = true;
+            }
         }
- 
-        backtracking(0, 0);
-        System.out.println(count);
+
+        backTracking(0, 0);
+
+        System.out.println(result);
     }
- 
-    public static void backtracking(int idx, int cnt) {
-        if(idx == n) {
-            if(cnt == m) count++; 
+
+    static void backTracking(int depth, int count) {
+        if (depth == n) {
+            if (count == m) {
+                result++;
+            }
+
             return;
         }
- 
-        for(int i = 0; i <= 9; i++) {
-            if(visited[i]) {
+
+        for (int i = 0; i <= 9; i++) {
+            if (visited[i]) {
                 visited[i] = false;
-                backtracking(idx + 1, cnt + 1);
+                backTracking(depth + 1, count + 1);
                 visited[i] = true;
             } else {
-                backtracking(idx + 1, cnt);
+                backTracking(depth + 1, count);
             }
         }
     }
