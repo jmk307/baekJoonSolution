@@ -5,7 +5,7 @@ import java.lang.*;
 
 public class Main {
     static int N, M;
-    static int answer = 0;
+    static long answer = Integer.MAX_VALUE;
 
     static int[] dx = {-1, 0, 1, 0};
     static int[] dy = {0, -1, 0, 1};
@@ -32,31 +32,34 @@ public class Main {
             max = Math.max(max, matrix[i]);
         }
 
-        int start = max;
-        int end = sum;
+        int start = 1;
+        int end = 1000000001;
 
-        while (start <= end) {
+        while (start + 1 < end) {
             int mid = (start + end) / 2;
 
             int count = 1;
             int current = mid;
             for (int i : matrix) {
+                if (i > mid) {
+                    count = Integer.MAX_VALUE;
+                    break;
+                }
+
                 current -= i;
-                
                 if (current < 0) {
                     count++;
                     current = mid - i;
                 }
             }
 
-            if (M >= count) {
-                answer = mid;
-                end = mid - 1;
+            if (count > M) {
+                start = mid;
             } else {
-                start = mid + 1;
+                end = mid;
             }
         }
 
-        System.out.println(answer);
+        System.out.println(end);
     }
 }
