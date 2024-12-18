@@ -1,68 +1,62 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.math.BigInteger;
+import java.util.*;
+import java.io.*;
+import java.lang.*;
 
 public class Main {
+    static int N, M;
+    static int answer = 0;
 
+    static int[] dx = {-1, 0, 1, 0};
+    static int[] dy = {0, -1, 0, 1};
 
-    static int arr[];
+    static int[] matrix;
+
+    static StringBuilder sb = new StringBuilder();
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
 
-        String[] str = br.readLine().split(" ");
+        st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
 
-        int N = Integer.parseInt(str[0]);
-        int M = Integer.parseInt(str[1]);
+        matrix = new int[N];
 
-        arr =  new int[N];
-
-
-        int end = 0;
-        int start = 0;
+        int sum = 0;
         int max = 0;
-        int result = 0;
         for (int i = 0; i < N; i++) {
-            arr[i] = Integer.parseInt(br.readLine());
-            end += arr[i];
-            max = Math.max(max,arr[i]);
-
+            matrix[i] = Integer.parseInt(br.readLine());
+            sum += matrix[i];
+            max = Math.max(max, matrix[i]);
         }
-        //돈을 가장 많이 쓰는 날 이상의 금액을 인출해야 한다.
-        // 그렇지 않으면ㄴ 인출을 하더라도 금액이 부족하기 때문에 계속 인출을 반복한다.
 
-        start = max;
+        int start = max;
+        int end = sum;
 
-        while (start <= end){
-                int mid = (start + end)/2;
-                // 지정한 횟수 이하의 횟수만큼 인출해야 할 경우,
-                // 인출 금액이 더 적은 경우에 해답이 있는지 탐색해 봐야 한다.
-                if(M >= getMid(mid)){
-                    result = mid;
-                    end = mid - 1;
-                    //지정한 횟수보다 더 많이 인출해야 할 경우
-                    //이눛ㄹ 금액이 더 커야한다.
-                }else{
-                    start = mid+1;
+        while (start <= end) {
+            int mid = (start + end) / 2;
+
+            int count = 1;
+            int current = mid;
+            for (int i : matrix) {
+                current -= i;
+                
+                if (current < 0) {
+                    count++;
+                    current = mid - i;
                 }
-        }
-
-        System.out.println(result);
-    }
-
-    static int getMid(int tempMoney){
-        int count = 1;
-        int money = tempMoney;
-
-        for(int num : arr){
-            money -= num;// 여기서 money는 하루 쓸 돈인데 0이상이면 인출한 돈이 모자라므로 한번 더 인출
-
-            if(money < 0){
-                count++;
-                money = tempMoney - num;
             }
 
+            if (M >= count) {
+                answer = mid;
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
         }
-        return count;
+
+        System.out.println(answer);
     }
 }
